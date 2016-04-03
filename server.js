@@ -7,12 +7,33 @@ var express = require('express'),
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
+
+//require express in our app
+var express = require('express'),
+  bodyParser = require('body-parser');
+
+// generate a new express app and call it 'app'
+var app = express();
+
+// serve static files in public
+app.use(express.static('public'));
+
+// body parser config to accept our datatypes
+app.use(bodyParser.urlencoded({ extended: true }));
+
 /************
  * DATABASE *
  ************/
 
 // var db = require('./models');
+var db = require('./models');
 
+var profile = [
+  {
+    name: 'Sam Huang',
+    github: 'Samuel1008@gmail.com'
+  }
+];
 /**********
  * ROUTES *
  **********/
@@ -25,9 +46,13 @@ app.use(express.static('public'));
  * HTML Endpoints
  */
 
-app.get('/', function homepage(req, res) {
-  res.sendFile(__dirname + '/views/index.html');
-});
+ app.get('/api/profile', function (req, res) {
+   res.json({profile: profile});
+ });
+
+ app.get('/', function (req, res) {
+   res.sendFile('views/index.html' , { root : __dirname});
+ });
 
 
 /*
@@ -46,8 +71,42 @@ app.get('/api', function api_index(req, res) {
       {method: "GET", path: "/api/profile", description: "Data about me"}, // CHANGE ME
       {method: "POST", path: "/api/campsites", description: "E.g. Create a new campsite"} // CHANGE ME
     ]
-  })
+  });
 });
+
+/*get all teams*/
+app.get('/api/sportsteams', function (req, res) {
+  // send all books as JSON response
+  db.Sportsteam.find(function(err, sportsteams){
+    if (err) {
+      console.log("noooo");}
+      res.json(sportsteams);
+    });
+
+});
+
+/*get 1 team*/
+// get one book
+app.get('/api/sportsteams/:id', function (req, res) {
+  // find one book by its id
+  console.log('sportsteams show', req.params);
+  for(var i=0; i < teams.length; i++) {
+    if (teams[i]._id === req.params.id) {
+      console.log("omaha");
+      res.json(teams[i]);
+      break; // we found the right team, we can stop searching
+    }
+  }
+});
+
+app.post('/api/sportsteams', function (req, res) {
+  // create new team with form data (`req.body`)
+  console.log('sportsteams create', req.body);
+  var newTeam = new db.Sportsteam(req.body);
+  console.log("kill kill kill");
+  res.json(newTeam);
+});
+
 
 /**********
  * SERVER *
