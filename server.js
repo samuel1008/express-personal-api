@@ -7,6 +7,12 @@ var express = require('express'),
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use(function(req, res, next) {
+       res.header("Access-Control-Allow-Origin", "*");
+       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+       next();
+   });
+
 
 //require express in our app
 var express = require('express'),
@@ -68,12 +74,13 @@ app.get('/api', function api_index(req, res) {
     woops_i_has_forgot_to_document_all_my_endpoints: true, // CHANGE ME ;)
     message: "Welcome to my personal api! Here's what you need to know!",
     documentation_url: "https://github.com/example-username/express_self_api/README.md", // CHANGE ME
-    base_url: "http://YOUR-APP-NAME.herokuapp.com", // CHANGE ME
+    base_url: "https://git.heroku.com/pumpkin-surprise-40656.git", // CHANGE ME
     endpoints: [
-      {method: "GET", path: "/api", description: "Describes all available endpoints"},
+      {method: "GET", path: "/api/sportsteams", description: "show all sportsteams"},
       {method: "GET", path: "/api/profile", description: "Data about me"}, // CHANGE ME
-      {method: "POST", path: "/api/campsites", description: "E.g. Create a new campsite"} // CHANGE ME
-    ]
+      {method: "POST", path: "/api/sportsteams", description: "Add new data"}, // CHANGE ME
+    ],
+
   });
 });
 
