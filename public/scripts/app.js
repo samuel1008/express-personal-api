@@ -31,6 +31,16 @@ $(document).ready(function(){
     });
   });
 
+  $teamsList.on('click', '.deleteBtn', function() {
+    console.log('clicked delete button to', '/api/sportsteams/'+$(this).attr('data-id'));
+    $.ajax({
+      method: 'DELETE',
+      url: '/api/sportsteams/'+$(this).attr('data-id'),
+      success: deleteTeamSuccess,
+      error: deleteTeamError
+    });
+  });
+
   function render () {
     // empty existing posts from view
     $teamsList.empty();
@@ -70,7 +80,7 @@ $(document).ready(function(){
     var team = json;
     console.log(json);
     var teamId = team._id;
-    console.log('delete team', teamId);
+    console.log('delete teamId', teamId);
     // find the book with the correct ID and remove it from our allBooks array
     for(var index = 0; index < allTeams.length; index++) {
       if(allteams[index]._id === teamId) {
@@ -79,6 +89,9 @@ $(document).ready(function(){
       }
     }
     render();
+  }
+  function deleteTeamError(){
+    console.log("gone!!");
   }
 
 

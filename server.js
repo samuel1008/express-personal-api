@@ -104,20 +104,25 @@ app.post('/api/sportsteams', function (req, res) {
   console.log('sportsteams create', req.body);
   var newTeam = new db.Sportsteam(req.body);
   console.log("yay i added a new team!");
-  res.json(newTeam);
+  newTeam.save(function(err, team){
+    if (err){
+      console.log("error!!!!");
+    }
+    res.json(team);
+
+  });
 });
+
+
 
 app.delete('api/sportsteams/:id', function (req, res){
   /*get book id from url params ('req.params')*/
   console.log('teams delete', req.params);
   var teamId = req.params.id;
   /*find the index of the book, we want to remove */
-  var deleteTeamIndex = teams.findIndex(function(element, index){
-    return (element._id === parseInt(req.params.id));
+  db.Sportsteam.findOneAndRemove({ _id: teamId }, function(err, deletedTeam){
+    res.json(deletedTeam);
   });
-    var teamToDelete = teams[deleteTeamIndex];
-    teams.splice(deleteTeamIndex, 1);
-    res.json(teamToDelete);
 });
 
 
