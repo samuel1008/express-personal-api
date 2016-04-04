@@ -83,7 +83,7 @@ $(document).ready(function(){
     console.log('delete teamId', teamId);
     // find the book with the correct ID and remove it from our allBooks array
     for(var index = 0; index < allTeams.length; index++) {
-      if(allteams[index]._id === teamId) {
+      if(allTeams[index]._id === teamId) {
         allTeams.splice(index, 1);
         break;  // we found our book - no reason to keep searching (this is why we didn't use forEach)
       }

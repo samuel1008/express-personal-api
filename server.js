@@ -28,10 +28,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // var db = require('./models');
 var db = require('./models');
 
+var myPets = [{name: "Mochi", type: "Dog", breed: "Chihuahua"}, {name: "Coco", type: "Dog", breed: "Chihuahua"}];
 var profile = [
   {
     name: 'Sam Huang',
-    github: 'Samuel1008@gmail.com'
+    github_link: 'https://github.com/samuel1008',
+    current_city: 'San Francisco',
+    pets: myPets
   }
 ];
 /**********
@@ -115,7 +118,7 @@ app.post('/api/sportsteams', function (req, res) {
 
 
 
-app.delete('api/sportsteams/:id', function (req, res){
+app.delete('/api/sportsteams/:id', function (req, res){
   /*get book id from url params ('req.params')*/
   console.log('teams delete', req.params);
   var teamId = req.params.id;

@@ -8,3 +8,27 @@ h1 {
   margin-top: 100px;
   text-align: center;
 }
+
+.container {
+  padding: 50px;
+}
+
+body {
+  background-color: white;
+}
+
+.deleteBtn {
+  background-color: #0000ff;
+  border-color: black;
+
+}
+
+#add-btn{
+  margin: 10px;
+  text-align: center;
+}
+
+#teamTarget {
+  text-align: center;
+  
+}
